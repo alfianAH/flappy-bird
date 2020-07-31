@@ -56,7 +56,7 @@ public class Bird : MonoBehaviour
         if (rigidbody2D)
         {
             // Stop bird's velocity when falling
-            // rigidbody2D.velocity = Vector2.zero;
+            rigidbody2D.velocity = Vector2.zero;
             
             // Add Force y-axis to Jump
             rigidbody2D.AddForce(new Vector2(0, upForce));
