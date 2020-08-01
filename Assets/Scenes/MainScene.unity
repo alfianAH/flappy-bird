@@ -905,7 +905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bird: {fileID: 644657865}
-  speed: 2
+  speed: 3
 --- !u!212 &592969192
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1852,7 +1852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bird: {fileID: 644657865}
-  speed: 2
+  speed: 3
 --- !u!212 &1470915116
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2325,6 +2325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bird: {fileID: 644657865}
   speed: 2
+  pipe: {fileID: 592969191}
 --- !u!61 &2057303956
 BoxCollider2D:
   m_ObjectHideFlags: 0

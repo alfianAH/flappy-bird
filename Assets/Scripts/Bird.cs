@@ -25,8 +25,6 @@ public class Bird : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         // Get Animator component
         animator = GetComponent<Animator>();
-        // Set scoreText
-        scoreText.text = score.ToString();
     }
 
     private void Update()

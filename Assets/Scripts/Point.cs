@@ -5,12 +5,12 @@ public class Point : MonoBehaviour
 {
     [SerializeField] private Bird bird;
     [SerializeField] private float speed = 1;
-    // [SerializeField] private Pipe pipe;
-    //
-    // private void Start()
-    // {
-    //     speed = pipe.Speed;
-    // }
+    [SerializeField] private Pipe pipe;
+    
+    private void Start()
+    {
+        speed = pipe.Speed;
+    }
 
     private void Update()
     {
