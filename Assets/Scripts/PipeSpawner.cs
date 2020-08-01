@@ -10,6 +10,7 @@ public class PipeSpawner : MonoBehaviour
     [SerializeField] private float spawnInterval = 1f;
     [SerializeField] private float holeSize = 1f;
     [SerializeField] private float maxMinOffset = 1f;
+    [SerializeField] private Point point;
     
     // Coroutine variable
     private Coroutine crSpawn;
@@ -71,5 +72,11 @@ public class PipeSpawner : MonoBehaviour
         float y = maxMinOffset * Mathf.Sin(Time.time);
         newPipeUp.transform.position += Vector3.up * y;
         newPipeDown.transform.position += Vector3.up * y;
+
+        Point newPoint = Instantiate(point, transform.position, Quaternion.identity);
+        
+        newPoint.gameObject.SetActive(true);
+        newPoint.SetSize(holeSize);
+        newPoint.transform.position += Vector3.up * y;
     }
 }

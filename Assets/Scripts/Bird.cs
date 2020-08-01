@@ -7,7 +7,11 @@ public class Bird : MonoBehaviour
     [SerializeField] private float upForce = 100;
     [SerializeField] private bool isDead;
     [SerializeField] private UnityEvent OnJump, OnDead;
-
+    
+    [Header("Score")]
+    [SerializeField] private int score;
+    [SerializeField] private UnityEvent onAddPoint;
+    
     private Rigidbody2D rigidbody2D;
     private Animator animator;
     
@@ -64,5 +68,13 @@ public class Bird : MonoBehaviour
         
         // Check null variable
         OnJump?.Invoke(); // Call all events on OnJump
+    }
+    
+    public void AddScore(int value)
+    {
+        score += value; // Add score
+
+        if (onAddPoint != null)
+            onAddPoint.Invoke(); // Call all events on onAddPoint
     }
 }

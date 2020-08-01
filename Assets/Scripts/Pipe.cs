@@ -6,6 +6,7 @@ public class Pipe : MonoBehaviour
     // Global variables
     [SerializeField] private Bird bird;
     [SerializeField] private float speed = 1;
+    // public float Speed => speed;
 
     private void Update()
     {
