@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Bird : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Bird : MonoBehaviour
     
     [Header("Score")]
     [SerializeField] private int score;
+    [SerializeField] private Text scoreText;
     [SerializeField] private UnityEvent onAddPoint;
     
     private Rigidbody2D rigidbody2D;
@@ -23,6 +25,8 @@ public class Bird : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         // Get Animator component
         animator = GetComponent<Animator>();
+        // Set scoreText
+        scoreText.text = score.ToString();
     }
 
     private void Update()
@@ -76,5 +80,7 @@ public class Bird : MonoBehaviour
 
         if (onAddPoint != null)
             onAddPoint.Invoke(); // Call all events on onAddPoint
+
+        scoreText.text = score.ToString();  // Set scoreText
     }
 }
