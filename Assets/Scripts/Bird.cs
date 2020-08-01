@@ -9,6 +9,10 @@ public class Bird : MonoBehaviour
     [SerializeField] private bool isDead;
     [SerializeField] private UnityEvent OnJump, OnDead;
     
+    [Header("Shoot")]
+    [SerializeField] private Bullet bullet;
+    [SerializeField] private Transform bulletHolder;
+
     [Header("Score")]
     [SerializeField] private int score;
     [SerializeField] private Text scoreText;
@@ -29,11 +33,13 @@ public class Bird : MonoBehaviour
 
     private void Update()
     {
-        // If bird isn't dead and left-mouse is clicked, ...
+        // If bird isn't dead and left-mouse is clicked, Jump
         if (!isDead && Input.GetMouseButtonDown(0))
-        {
             Jump(); // Jump
-        }
+
+        // If Space is pressed, Shoot!!!
+        if (Input.GetKeyDown(KeyCode.Space))
+            bullet.Shoot(bulletHolder);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -76,8 +82,7 @@ public class Bird : MonoBehaviour
     {
         score += value; // Add score
 
-        if (onAddPoint != null)
-            onAddPoint.Invoke(); // Call all events on onAddPoint
+        onAddPoint?.Invoke(); // Call all events on onAddPoint
 
         scoreText.text = score.ToString();  // Set scoreText
     }

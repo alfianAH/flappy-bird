@@ -79,7 +79,7 @@ public class PipeSpawner : MonoBehaviour
         Point newPoint = Instantiate(point, transform.position, Quaternion.identity);
         
         newPoint.gameObject.SetActive(true);
-        newPoint.SetSize(holeSize);
+        newPoint.SetSize(Screen.height); // Set height to screen's height
         newPoint.transform.position += Vector3.up * y;
     }
 }
