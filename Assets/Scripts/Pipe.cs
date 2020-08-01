@@ -1,6 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class Pipe : MonoBehaviour
 {
     // Global variables
