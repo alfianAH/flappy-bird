@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PipeSpawner : MonoBehaviour
 {
@@ -9,9 +9,11 @@ public class PipeSpawner : MonoBehaviour
     [SerializeField] private Pipe pipeUp, pipeDown;
     [SerializeField] private float spawnInterval = 1f;
     [SerializeField] private float holeSize = 1f;
+    [SerializeField] private float maxHoleSize = 2f,
+        minHoleSize = 1f;
     [SerializeField] private float maxMinOffset = 1f;
     [SerializeField] private Point point;
-    
+
     // Coroutine variable
     private Coroutine crSpawn;
 
@@ -65,6 +67,7 @@ public class PipeSpawner : MonoBehaviour
         newPipeDown.gameObject.SetActive(true);
 
         // Make hole in the middle of pipe
+        holeSize = Random.Range(minHoleSize, maxHoleSize); // Make a random hole size 
         newPipeUp.transform.position += Vector3.up * (holeSize / 2); 
         newPipeDown.transform.position += Vector3.down * (holeSize / 2);
         
