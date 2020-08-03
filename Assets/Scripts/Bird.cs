@@ -25,7 +25,13 @@ public class Bird : MonoBehaviour
     
     private Rigidbody2D rigidbody2D;
     private Animator birdAnimator;
-    
+
+    public int Ammo
+    {
+        get => ammo;
+        set => ammo = value;
+    }
+
     public bool IsDead => isDead; // Getter isDead
 
     private void Start()
@@ -35,8 +41,8 @@ public class Bird : MonoBehaviour
         // Get Animator component
         birdAnimator = GetComponent<Animator>();
         // Set bulletText
-        if(bulletText)
-            bulletText.text = ammo.ToString();
+        if (bulletText)
+            ChangeBulletUi();
         // Start ShowBulletInstruction Coroutine
         StartCoroutine(BlinkAnimation(bulletInstruction,5f));
         StartCoroutine(BulletInstruction(5f));
@@ -54,7 +60,7 @@ public class Bird : MonoBehaviour
             if(ammo > 0)
             {
                 ammo--;
-                bulletText.text = ammo.ToString();
+                ChangeBulletUi();
                 bullet.Shoot(bulletHolder);
             }
             else
@@ -69,6 +75,14 @@ public class Bird : MonoBehaviour
     {
         // Stop bird animation when bird collides with other objects
         birdAnimator.enabled = false;
+    }
+
+    /// <summary>
+    /// Change bullet UI 
+    /// </summary>
+    public void ChangeBulletUi()
+    {
+        bulletText.text = ammo.ToString();
     }
 
     /// <summary>
@@ -126,6 +140,10 @@ public class Bird : MonoBehaviour
         OnJump?.Invoke(); // Call all events on OnJump
     }
     
+    /// <summary>
+    /// AddScore by value
+    /// </summary>
+    /// <param name="value"></param>
     public void AddScore(int value)
     {
         onAddPoint?.Invoke(); // Call all events on onAddPoint

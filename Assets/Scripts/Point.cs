@@ -17,7 +17,7 @@ public class Point : MonoBehaviour
         if (!bird.IsDead)
         {
             // Move this game object to the left
-            transform.Translate(Vector3.left * (speed * Time.deltaTime));
+            transform.Translate(Vector3.left * (speed * Time.deltaTime), Space.World);
         }
     }
 

@@ -18,15 +18,14 @@ public class Bullet : MonoBehaviour
     }
 
     /// <summary>
-    /// When collide with other object, destroy self and that object
+    /// When collide with other object, except Bird, destroy self and that object
     /// </summary>
     /// <param name="other"></param>
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject) // If collide with other, ...
-        {
-            Destroy(other.gameObject); // Destroy other gameObject
-            Destroy(gameObject); // Destroy self
-        }
+        if (!other.gameObject) return;
+        if (other.gameObject.name == "Bird") return;
+        Destroy(other.gameObject); // Destroy other gameObject
+        Destroy(gameObject); // Destroy self
     }
 }

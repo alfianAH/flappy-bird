@@ -13,7 +13,8 @@ public class PipeSpawner : MonoBehaviour
         minHoleSize = 1f;
     [SerializeField] private float maxMinOffset = 1f;
     [SerializeField] private Point point;
-
+    [SerializeField] private BulletSpawner bulletSpawner;
+    
     // Coroutine variable
     private Coroutine crSpawn;
 
@@ -81,5 +82,8 @@ public class PipeSpawner : MonoBehaviour
         newPoint.gameObject.SetActive(true);
         newPoint.SetSize(Screen.height); // Set height to screen's height
         newPoint.transform.position += Vector3.up * y;
+        
+        // Spawn new bullet
+        bulletSpawner.Spawn(transform.position, Quaternion.identity, y);
     }
 }
