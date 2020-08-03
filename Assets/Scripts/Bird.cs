@@ -131,5 +131,8 @@ public class Bird : MonoBehaviour
         onAddPoint?.Invoke(); // Call all events on onAddPoint
         score += value; // Add score
         scoreText.text = score.ToString();  // Set scoreText
+
+        if (score > PlayerPrefs.GetInt("highScore"))
+            PlayerPrefs.SetInt("highScore", score);
     }
 }
