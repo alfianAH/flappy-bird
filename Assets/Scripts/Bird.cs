@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ public class Bird : MonoBehaviour
     [SerializeField] private Bullet bullet;
     [SerializeField] private Transform bulletHolder;
     [SerializeField] private Text bulletText;
+    [SerializeField] private GameObject bulletInstruction;
 
     [Header("Score")]
     [SerializeField] private int score;
@@ -32,7 +34,10 @@ public class Bird : MonoBehaviour
         // Get Animator component
         animator = GetComponent<Animator>();
         // Set bulletText
-        bulletText.text = ammo.ToString();
+        if(bulletText)
+            bulletText.text = ammo.ToString();
+        // Start ShowBulletInstruction Coroutine
+        StartCoroutine(ShowBulletInstruction());
     }
 
     private void Update()
@@ -52,6 +57,16 @@ public class Bird : MonoBehaviour
     {
         // Stop bird animation when bird collides with other objects
         animator.enabled = false;
+    }
+
+    /// <summary>
+    /// Wait for 5 seconds and destroy bullet instruction
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator ShowBulletInstruction()
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(bulletInstruction);
     }
 
     /// <summary>
