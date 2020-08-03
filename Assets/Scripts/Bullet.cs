@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float bulletSpeed = 10000f;

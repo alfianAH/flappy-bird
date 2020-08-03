@@ -8,10 +8,12 @@ public class Bird : MonoBehaviour
     [SerializeField] private float upForce = 100;
     [SerializeField] private bool isDead;
     [SerializeField] private UnityEvent OnJump, OnDead;
-    
+
     [Header("Shoot")]
+    [SerializeField] private int ammo = 3;
     [SerializeField] private Bullet bullet;
     [SerializeField] private Transform bulletHolder;
+    [SerializeField] private Text bulletText;
 
     [Header("Score")]
     [SerializeField] private int score;
@@ -29,6 +31,8 @@ public class Bird : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         // Get Animator component
         animator = GetComponent<Animator>();
+        // Set bulletText
+        bulletText.text = ammo.ToString();
     }
 
     private void Update()
@@ -38,8 +42,10 @@ public class Bird : MonoBehaviour
             Jump(); // Jump
 
         // If Space is pressed, Shoot!!!
-        if (Input.GetKeyDown(KeyCode.Space))
-            bullet.Shoot(bulletHolder);
+        if (isDead || !Input.GetKeyDown(KeyCode.Space) || ammo <= 0) return;
+        ammo--;
+        bulletText.text = ammo.ToString();
+        bullet.Shoot(bulletHolder);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
