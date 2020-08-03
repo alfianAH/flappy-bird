@@ -15,7 +15,8 @@ public class Bird : MonoBehaviour
     [SerializeField] private Bullet bullet;
     [SerializeField] private Transform bulletHolder;
     [SerializeField] private Text bulletText;
-    [SerializeField] private GameObject bulletInstruction;
+    [SerializeField] private Animator bulletTextAnimator;
+    [SerializeField] private Animator bulletInstruction;
 
     [Header("Score")]
     [SerializeField] private int score;
@@ -23,7 +24,7 @@ public class Bird : MonoBehaviour
     [SerializeField] private UnityEvent onAddPoint;
     
     private Rigidbody2D rigidbody2D;
-    private Animator animator;
+    private Animator birdAnimator;
     
     public bool IsDead => isDead; // Getter isDead
 
@@ -32,12 +33,13 @@ public class Bird : MonoBehaviour
         // Get Rigidbody2D component
         rigidbody2D = GetComponent<Rigidbody2D>();
         // Get Animator component
-        animator = GetComponent<Animator>();
+        birdAnimator = GetComponent<Animator>();
         // Set bulletText
         if(bulletText)
             bulletText.text = ammo.ToString();
         // Start ShowBulletInstruction Coroutine
-        StartCoroutine(ShowBulletInstruction());
+        StartCoroutine(BlinkAnimation(bulletInstruction,5f));
+        StartCoroutine(BulletInstruction(5f));
     }
 
     private void Update()
@@ -47,25 +49,53 @@ public class Bird : MonoBehaviour
             Jump(); // Jump
 
         // If Space is pressed, Shoot!!!
-        if (isDead || !Input.GetKeyDown(KeyCode.Space) || ammo <= 0) return;
-        ammo--;
-        bulletText.text = ammo.ToString();
-        bullet.Shoot(bulletHolder);
+        if (!isDead && Input.GetKeyDown(KeyCode.Space))
+        {
+            if(ammo > 0)
+            {
+                ammo--;
+                bulletText.text = ammo.ToString();
+                bullet.Shoot(bulletHolder);
+            }
+            else
+            {
+                bulletTextAnimator.enabled = true;
+                StartCoroutine(BlinkAnimation(bulletTextAnimator, 3f));
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         // Stop bird animation when bird collides with other objects
-        animator.enabled = false;
+        birdAnimator.enabled = false;
     }
 
     /// <summary>
-    /// Wait for 5 seconds and destroy bullet instruction
+    /// Wait until "waitSeconds" and disable "animator"
     /// </summary>
+    /// <param name="animator"></param>
+    /// <param name="waitSeconds"></param>
     /// <returns></returns>
-    private IEnumerator ShowBulletInstruction()
+    private IEnumerator BlinkAnimation(Animator animator, float waitSeconds)
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(waitSeconds);
+        animator.enabled = false;
+        
+        // Enable bulletText after animation if it's not enabled 
+        if (animator != bulletTextAnimator) yield break;
+        if (!bulletText.enabled)
+            bulletText.enabled = true;
+    }
+
+    /// <summary>
+    /// Destroy bullet instruction after wait seconds
+    /// </summary>
+    /// <param name="waitSeconds"></param>
+    /// <returns></returns>
+    private IEnumerator BulletInstruction(float waitSeconds)
+    {
+        yield return new WaitForSeconds(waitSeconds);
         Destroy(bulletInstruction);
     }
 
@@ -75,10 +105,7 @@ public class Bird : MonoBehaviour
     public void Dead()
     {
         if (!isDead)
-        {
-            // Call all events on OnDead
-            OnDead?.Invoke();
-        }
+            OnDead?.Invoke(); // Call all events on OnDead
 
         isDead = true; // Set isDead to true
     }
@@ -101,10 +128,8 @@ public class Bird : MonoBehaviour
     
     public void AddScore(int value)
     {
-        score += value; // Add score
-
         onAddPoint?.Invoke(); // Call all events on onAddPoint
-
+        score += value; // Add score
         scoreText.text = score.ToString();  // Set scoreText
     }
 }
