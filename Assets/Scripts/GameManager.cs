@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image exitMenu;
     [SerializeField] private Sprite[] backgroundSprites;
     [SerializeField] private SpriteRenderer[] backgrounds;
-    private float longDay = 30f;
+    [SerializeField] private float longDay = 30f;
+    
     private int index = 0;
     private bool hasChange;
     

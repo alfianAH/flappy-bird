@@ -94,10 +94,12 @@ public class Bird : MonoBehaviour
     private IEnumerator BlinkAnimation(Animator animator, float waitSeconds)
     {
         yield return new WaitForSeconds(waitSeconds);
-        animator.enabled = false;
+        if(animator)
+            animator.enabled = false;
         
         // Enable bulletText after animation if it's not enabled 
         if (animator != bulletTextAnimator) yield break;
+        if (!bulletText) yield break;
         if (!bulletText.enabled)
             bulletText.enabled = true;
     }
