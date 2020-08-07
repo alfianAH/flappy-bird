@@ -1,7 +1,7 @@
 ﻿# Flappy Bird
 
 ## How to install
-1. Go to [Release tab] (https://github.com/alfianAH/flappy-bird/releases) 
+1. Go to [Release tab](https://github.com/alfianAH/flappy-bird/releases) 
 2. Click FlappyBird.exe and make sure it is the latest version
 3. It will automatically download the file to your computer
 4. After downloading, install it by clicking on file
@@ -31,6 +31,6 @@ This is the solution:
 
 ## Example Scene
 
-![Day Background] (/Images/dayBG.png)
+![Day Background](/Images/dayBG.png)
 
-![Night Background] (/Images/nightBG.png)
+![Night Background](/Images/nightBG.png)
